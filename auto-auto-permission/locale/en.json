@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Auto review by default",
+    "description": "Selects Auto review for new conversations while the experimental Auto review plugin is enabled."
+  }
+}

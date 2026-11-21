@@ -1,0 +1,31 @@
+{
+  "name": "dsh-plugins-pack",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A pack of small, independent DeepSeek Harness features. Each feature lives in its own subdirectory and is registered as a separate plugin entry.",
+  "type": "module",
+  "icon": "icon.png",
+  "exports": {
+    "./locale/*.json": "./locale/*.json",
+    "./auto-auto-permission": "./auto-auto-permission/index.js",
+    "./auto-auto-permission/locale/*.json": "./auto-auto-permission/locale/*.json",
+    "./auto-auto-permission/icon": "./auto-auto-permission/icon.svg",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "cordis.patch.yml",
+    "icon.png",
+    "locale/*.json",
+    "docs/*.md",
+    "auto-auto-permission/index.js",
+    "auto-auto-permission/locale/*.json",
+    "auto-auto-permission/icon.svg",
+    "auto-auto-permission/README.md",
+    "README.md"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
+}

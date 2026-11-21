@@ -1,0 +1,10 @@
+# dsh-plugins-pack bundle 层：每个小功能一行，name 指向包内子路径。
+#
+# 子路径必须同时在 package.json 的 exports 中声明；行 id 建议与子目录同名，
+# 方便在 profile 的 cordis.patch.yml 里按 id 单独覆盖 config 或禁用：
+#
+#   - id: auto-auto-permission
+#     disabled: true
+- insert:
+    - id: auto-auto-permission
+      name: dsh-plugins-pack/auto-auto-permission
