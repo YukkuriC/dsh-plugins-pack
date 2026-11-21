@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Fixed native script path",
+    "description": "Writes the file-association PowerShell script to a fixed folder that antivirus software can exclude."
+  }
+}

@@ -10,6 +10,9 @@
     "./auto-auto-permission": "./auto-auto-permission/index.js",
     "./auto-auto-permission/locale/*.json": "./auto-auto-permission/locale/*.json",
     "./auto-auto-permission/icon": "./auto-auto-permission/icon.svg",
+    "./fixed-native-script": "./fixed-native-script/index.js",
+    "./fixed-native-script/locale/*.json": "./fixed-native-script/locale/*.json",
+    "./fixed-native-script/icon": "./fixed-native-script/icon.svg",
     "./package.json": "./package.json"
   },
   "files": [
@@ -21,6 +24,10 @@
     "auto-auto-permission/locale/*.json",
     "auto-auto-permission/icon.svg",
     "auto-auto-permission/README.md",
+    "fixed-native-script/index.js",
+    "fixed-native-script/locale/*.json",
+    "fixed-native-script/icon.svg",
+    "fixed-native-script/README.md",
     "README.md"
   ],
   "dsh": {

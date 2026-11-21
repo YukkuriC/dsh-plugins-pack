@@ -21,12 +21,13 @@ dsh-plugins-pack/
 ├─ locale/zh.json
 ├─ docs/usage.md                安装、启停与配置
 ├─ docs/development.md          本文档
-├─ auto-auto-permission/        一个功能 = 一个子目录
+├─ auto-auto-permission/        一个功能 = 一个子目录（示例）
 │  ├─ index.js                  插件组件（Host 侧 Cordis 插件）
 │  ├─ locale/en.json            显示标题与描述
 │  ├─ locale/zh.json
 │  ├─ icon.svg                  功能条目图标
 │  └─ README.md                 功能行为、依赖与验证步骤
+├─ fixed-native-script/         另一个功能，目录结构相同
 └─ README.md                    简要说明与功能列表
 ```
 
