@@ -34,5 +34,12 @@
     "bundle": {
       "patch": "./cordis.patch.yml"
     }
+  },
+  "scripts": {
+    "format": "prettier --write \"**/*.{js,mjs,cjs}\"",
+    "format:check": "prettier --check \"**/*.{js,mjs,cjs}\""
+  },
+  "devDependencies": {
+    "prettier": "^3.10.1"
   }
 }

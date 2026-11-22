@@ -62,11 +62,14 @@ export function apply(ctx) {
   syncBuiltinESMExports()
   ctx.logger.info(`fixed-native-script: association scripts live in ${directory}`)
 
-  ctx.effect(() => () => {
-    fsp.mkdtemp = mkdtemp
-    fsp.rm = rm
-    syncBuiltinESMExports()
-    for (const wake of waiters.splice(0)) wake()
-    busy = false
-  }, 'fixed-native-script: restore fs/promises')
+  ctx.effect(
+    () => () => {
+      fsp.mkdtemp = mkdtemp
+      fsp.rm = rm
+      syncBuiltinESMExports()
+      for (const wake of waiters.splice(0)) wake()
+      busy = false
+    },
+    'fixed-native-script: restore fs/promises',
+  )
 }
