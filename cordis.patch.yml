@@ -10,3 +10,5 @@
       name: dsh-plugins-pack/auto-auto-permission
     - id: fixed-native-script
       name: dsh-plugins-pack/fixed-native-script
+    - id: composer-key-swap
+      name: dsh-plugins-pack/composer-key-swap

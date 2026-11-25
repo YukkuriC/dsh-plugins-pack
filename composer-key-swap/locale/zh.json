@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "对调发送与换行快捷键",
+    "description": "启用后 Enter 换行、Shift+Enter 发送消息；启用、停用或修改后需刷新页面。"
+  }
+}

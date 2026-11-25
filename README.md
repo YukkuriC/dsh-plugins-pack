@@ -9,6 +9,7 @@
 |---|---|---|
 |[新对话默认自动审查](auto-auto-permission/README.md)|新会话自动选中「自动审查」权限，仅在实验性 Auto review 启用时生效。|已实现|
 |[固定原生脚本路径](fixed-native-script/README.md)|把「打开方式」用的 PowerShell 脚本固定到可加入杀毒排除项的目录。|已实现|
+|[对调发送与换行快捷键](composer-key-swap/README.md)|启用后 Enter 换行、Shift+Enter 发送；只在 Web/桌面页面生效，启停后需刷新页面。|已实现|
 
 ## 文档
 

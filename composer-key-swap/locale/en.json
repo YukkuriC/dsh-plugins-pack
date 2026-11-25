@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Swap send and newline shortcuts",
+    "description": "Enter inserts a line break and Shift+Enter sends the message; reload the page after enabling, disabling, or changing it."
+  }
+}

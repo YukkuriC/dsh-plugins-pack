@@ -2,11 +2,12 @@
 
 ## 设计
 
-一个包、多个子路径插件，而不是一个功能一个包：安装点只有一个，功能共享版本号，但每个功能仍是独立的 Cordis 插件，启停互不影响。代价是子路径插件只有 Host 半边，见文末「限制」。
+一个包、多个子路径插件，而不是一个功能一个包：安装点只有一个，功能共享版本号，但每个功能仍是独立的 Cordis 插件，启停互不影响。代价是子路径插件只有 Host 半边；需要浏览器行为时用 index 注入脚本，见[带浏览器行为的子条目](#带浏览器行为的子条目)。
 
 - 一次安装，一个 bundle 包；新增功能只改仓库，不需要重新安装。
 - 每个功能一个子目录，子目录本身就是插件组件：一个导出 `apply(ctx, config)` 的 Cordis 插件。
 - 每个功能在 `cordis.patch.yml` 中占一行，以 `dsh-plugins-pack/<目录名>` 的子路径形式加载，因此在插件管理页或 profile 的 `cordis.patch.yml` 中可以按 id 单独开关。
+- 需要浏览器行为的子条目在 `index.js` 里监听 `webserver/index-inject`，把 `client.js` 注入页面，见[带浏览器行为的子条目](#带浏览器行为的子条目)。
 - 无构建步骤：纯 ESM JavaScript，改完重启 DSH 即生效。
 - 每个功能自带显示元数据（`locale/en.json`、`locale/zh.json`、`icon.svg`）。
 
@@ -28,6 +29,13 @@ dsh-plugins-pack/
 │  ├─ icon.svg                  功能条目图标
 │  └─ README.md                 功能行为、依赖与验证步骤
 ├─ fixed-native-script/         另一个功能，目录结构相同
+├─ composer-key-swap/           带浏览器行为的子条目
+│  ├─ index.js                  Host 半边：把 client.js 注入页面
+│  ├─ client.js                 注入页面的普通脚本
+│  ├─ locale/en.json
+│  ├─ locale/zh.json
+│  ├─ icon.svg
+│  └─ README.md
 └─ README.md                    简要说明与功能列表
 ```
 
@@ -81,6 +89,38 @@ export function apply(ctx, config) {
 
 > 自查：目录名、`exports` 子路径、patch 中的 `name` 三处必须一致。
 
+## 带浏览器行为的子条目
+
+子路径插件不读 `package.json`，没有 `dsh.client`，不能当 Client 插件挂载；但 Host 半边可以向页面注入脚本。`composer-key-swap` 是现成模板：
+
+1. 建 `<name>/index.js` 和 `<name>/client.js`。`index.js` 监听 `webserver/index-inject`，向注入表推一行 `script`：
+
+```js
+import { readFileSync } from 'node:fs'
+import { join } from 'node:path'
+
+export function apply(ctx) {
+  ctx.on('webserver/index-inject', table => {
+    table.push({
+      kind: 'script',
+      placement: 'body',
+      text: readFileSync(join(import.meta.dirname, 'client.js'), 'utf8'),
+    })
+  })
+}
+```
+
+2. `client.js` 是普通浏览器脚本，不是 ES 模块：页面加载时执行，可以访问 `window`、`document`，拿不到 `ctx`、`require` 或 Harness 服务。
+
+3. `exports` 与 patch 的写法和普通功能一样；`client.js` 只进 `files`，不需要导出。
+
+约定：
+
+- 注入行在每次 index.html 渲染时现读，改完 `client.js` 刷新页面即可生效；启用或禁用条目同样要刷新页面，脚本没有卸载钩子。
+- 脚本原文直接放进内联 `<script>`，不能包含 `</script>`，也不要依赖外部资源。
+- 只在 Web 与桌面页面存在；TUI 和 headless 没有页面，事件不会触发。
+- 这是脚本级扩展点，没有 slot、React 组件、主题 token 和热更新；需要这些的功能仍应单独做成 bundle 包。
+
 ## 约定
 
 - 一个功能一个目录，功能之间不互相 import；需要共享代码时单独建目录并补充 `exports`。
@@ -92,5 +132,6 @@ export function apply(ctx, config) {
 
 ## 限制
 
-- 当前框架只承载 Host 侧插件。子路径插件不读 `package.json`，无法声明 `dsh.client`，因此没有 Web UI 半边；需要页面或面板的功能应单独做成一个 bundle 包。
+- 子路径插件不读 `package.json`，无法声明 `dsh.client`，没有 Client 插件的 slot、主题和热更新；浏览器行为只能通过 `webserver/index-inject` 注入脚本实现（见[带浏览器行为的子条目](#带浏览器行为的子条目)），启停和改脚本都要刷新页面。
+- 需要 React 组件、slot 参与或热更新的页面、面板功能，仍应单独做成 bundle 包。
 - 每个功能是一个独立条目，启停、配置、卸载互不影响。

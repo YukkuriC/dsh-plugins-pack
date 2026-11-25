@@ -13,6 +13,9 @@
     "./fixed-native-script": "./fixed-native-script/index.js",
     "./fixed-native-script/locale/*.json": "./fixed-native-script/locale/*.json",
     "./fixed-native-script/icon": "./fixed-native-script/icon.svg",
+    "./composer-key-swap": "./composer-key-swap/index.js",
+    "./composer-key-swap/locale/*.json": "./composer-key-swap/locale/*.json",
+    "./composer-key-swap/icon": "./composer-key-swap/icon.svg",
     "./package.json": "./package.json"
   },
   "files": [
@@ -28,6 +31,11 @@
     "fixed-native-script/locale/*.json",
     "fixed-native-script/icon.svg",
     "fixed-native-script/README.md",
+    "composer-key-swap/index.js",
+    "composer-key-swap/client.js",
+    "composer-key-swap/locale/*.json",
+    "composer-key-swap/icon.svg",
+    "composer-key-swap/README.md",
     "README.md"
   ],
   "dsh": {
